@@ -27,18 +27,9 @@ public class ManqobaLubisiApplication implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-        File file = new File("1664806859027-GraduateDev_AssessmentCsv_v2.csv"); 
+        File file = new File("CSV File/1664806859027-GraduateDev_AssessmentCsv_v2.csv"); 
         fileParserImple.parseCSV(file);
         
-        AccountProfile accountProfile = accountProfileRepository.findByNameAndSurname("Enviro365", "IT Solutions");
-        
-        System.out.println(accountProfile.toString());
-        
-        File file2;
-        file2 = fileParserImple.convertCSVDataToImage(accountProfile.getImageData());
-        
-        URL url = fileParserImple.createImageLink(file2);
-        System.out.println("url: "+url);
     }
 
 }

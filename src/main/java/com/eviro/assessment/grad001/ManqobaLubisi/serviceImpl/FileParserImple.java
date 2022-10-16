@@ -76,7 +76,7 @@ public class FileParserImple implements FileParser {
 
         if (base64ImageData != null) {
             byte[] decodedBytes = Base64.getDecoder().decode(base64ImageData);
-            file = new File("out.jpeg");
+            file = new File("images/image.png");
             FileOutputStream fileOutputStream;
             try {
                 fileOutputStream = new FileOutputStream(file);

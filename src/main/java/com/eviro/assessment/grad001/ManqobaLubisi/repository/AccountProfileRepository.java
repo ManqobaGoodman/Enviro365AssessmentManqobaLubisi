@@ -15,9 +15,11 @@ import org.springframework.stereotype.Repository;
  * @author manqo
  */
 @Repository
-public interface AccountProfileRepository extends JpaRepository<AccountProfile, Long>{
-    
-    public AccountProfile findByNameAndSurname(String name,String surname);
+public interface AccountProfileRepository extends JpaRepository<AccountProfile, Long> {
 
-    
+//    public AccountProfile findByNameAndSurname(String name, String surname);
+
+    @Query("select a from AccountProfile a where a.name  = ?1 and a.surname  = ?2")
+    AccountProfile getAccount( String surname,String name);
+
 }

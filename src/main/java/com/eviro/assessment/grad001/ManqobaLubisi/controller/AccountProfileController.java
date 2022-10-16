@@ -32,20 +32,18 @@ public class AccountProfileController {
     private AccountProfileServiceImpl accountProfileServiceImpl;
 
     @GetMapping(value = "getImage/{name}/{surname}")
-    public String gethttpImageLink(@PathVariable String name, @PathVariable String surname) throws IOException {
-        String link = null;
-            AccountProfile accountProfile = accountProfileServiceImpl.findByNameAndSurname(name, surname);
-
-            if (accountProfile != null) {
-                File file = fileParser.convertCSVDataToImage(accountProfile.getImageData());
-                URL url = fileParser.createImageLink(file);
+    public URL gethttpImageLink(@PathVariable String name, @PathVariable String surname) throws IOException {
+        URL url = null;
+        AccountProfile accountProfile = accountProfileServiceImpl.findByNameAndSurname(name, surname);
+        if (accountProfile != null) {
+            File file = fileParser.convertCSVDataToImage(accountProfile.getImageData());
+            if (file != null) {
+                url = fileParser.createImageLink(file);
                 
-                System.out.println("URL: "+ url);
-
-                FileSystemResource fileSystemResource = new FileSystemResource(url.getFile());
-                link = fileSystemResource.getURL().toString();
             }
-            
-        return link;
+
+        }
+
+        return url;
     }
 }

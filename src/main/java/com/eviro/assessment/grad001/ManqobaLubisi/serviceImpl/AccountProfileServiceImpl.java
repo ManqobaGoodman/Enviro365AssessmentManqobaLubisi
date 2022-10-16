@@ -30,7 +30,7 @@ public class AccountProfileServiceImpl implements AccountProfileService{
 
     @Override
     public AccountProfile findByNameAndSurname(String name, String surname) {
-        return accountProfileRepository.findByNameAndSurname(name, surname);
+        return accountProfileRepository.getAccount(name, surname);
     }
 
     
