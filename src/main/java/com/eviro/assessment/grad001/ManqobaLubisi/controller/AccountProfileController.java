@@ -38,8 +38,7 @@ public class AccountProfileController {
         if (accountProfile != null) {
             File file = fileParser.convertCSVDataToImage(accountProfile.getImageData());
             if (file != null) {
-                url = fileParser.createImageLink(file);
-                
+                url = fileParser.createImageLink(file);     
             }
 
         }
