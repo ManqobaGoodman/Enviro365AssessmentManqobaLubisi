@@ -56,9 +56,10 @@ public class FileParserImple implements FileParser {
                 List<Record> recordList = csvParser.parseAllRecords(inputReader);
                 for (Record record : recordList) {
                     AccountProfile account = new AccountProfile();
+                    String imageFormat = record.getString("imageFormat");
                     account.setName(record.getString("name"));
                     account.setSurname(record.getString("surname"));
-                    account.setImageData(record.getString("imageData"));
+                    account.setImageData(imageFormat+" "+record.getString("imageData"));
                     accountList.add(account);
 
                 }
@@ -75,8 +76,13 @@ public class FileParserImple implements FileParser {
         File file = null;
 
         if (base64ImageData != null) {
-            byte[] decodedBytes = Base64.getDecoder().decode(base64ImageData);
-            file = new File("images/image.png");
+
+            String[] base64ImageDataArray = base64ImageData.split(" ");
+            System.out.println("String: "+base64ImageDataArray[0]);
+
+            byte[] decodedBytes = Base64.getDecoder().decode(base64ImageDataArray[1]);
+            String fileName = base64ImageDataArray[0].replace('/', '.');
+            file = new File(fileName);
             FileOutputStream fileOutputStream;
             try {
                 fileOutputStream = new FileOutputStream(file);
