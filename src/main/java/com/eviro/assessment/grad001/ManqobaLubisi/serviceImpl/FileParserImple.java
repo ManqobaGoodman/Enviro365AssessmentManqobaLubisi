@@ -82,7 +82,7 @@ public class FileParserImple implements FileParser {
 
             byte[] decodedBytes = Base64.getDecoder().decode(base64ImageDataArray[1]);
             String fileName = base64ImageDataArray[0].replace('/', '.');
-            file = new File(fileName);
+            file = new File("images/"+fileName);
             FileOutputStream fileOutputStream;
             try {
                 fileOutputStream = new FileOutputStream(file);
