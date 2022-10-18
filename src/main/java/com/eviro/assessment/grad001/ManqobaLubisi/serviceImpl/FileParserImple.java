@@ -57,9 +57,17 @@ public class FileParserImple implements FileParser {
                 for (Record record : recordList) {
                     AccountProfile account = new AccountProfile();
                     String imageFormat = record.getString("imageFormat");
+                    String imageData = record.getString("imageData");
+                    String imageFormatData = imageFormat+" "+imageData;
+                    
+                    File image = convertCSVDataToImage(imageFormatData);
+                    
+                    URL url = createImageLink(image);
+                    
                     account.setName(record.getString("name"));
-                    account.setSurname(record.getString("surname"));
-                    account.setImageData(imageFormat+" "+record.getString("imageData"));
+                    account.setSurname(record.getString("surname"));                
+                    account.setHttpImageLink(url.toString());
+                    
                     accountList.add(account);
 
                 }
@@ -102,7 +110,7 @@ public class FileParserImple implements FileParser {
         if (fileImage != null) {
             FileSystemResource fileSystemResource = new FileSystemResource(fileImage);
             try {
-                url = fileSystemResource.getURL();
+               url = fileImage.toURI().toURL();
             } catch (Exception ex) {
                 System.out.println("Error: " + ex.getMessage());
             }

@@ -36,11 +36,7 @@ public class AccountProfileController {
         URL url = null;
         AccountProfile accountProfile = accountProfileServiceImpl.findByNameAndSurname(name, surname);
         if (accountProfile != null) {
-            File file = fileParser.convertCSVDataToImage(accountProfile.getImageData());
-            if (file != null) {
-                url = fileParser.createImageLink(file);     
-            }
-
+            url = new URL(accountProfile.getHttpImageLink());
         }
 
         return url;

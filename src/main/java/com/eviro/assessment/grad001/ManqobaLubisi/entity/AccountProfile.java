@@ -25,8 +25,8 @@ public class AccountProfile {
     private String name;
     @Column(length = 255)
     private String surname;
-    @Column(length = 500000)
-    private String imageData;
+    @Column(length = 500)
+    private String httpImageLink;
 
     public AccountProfile() {
     }
@@ -73,24 +73,20 @@ public class AccountProfile {
         this.surname = surname;
     }
 
-    /**
-     * @return the imageData
-     */
-    public String getImageData() {
-        return imageData;
+    public String getHttpImageLink() {
+        return httpImageLink;
     }
 
-    /**
-     * @param imageData the imageData to set
-     */
-    public void setImageData(String imageData) {
-        this.imageData = imageData;
-    }   
+    public void setHttpImageLink(String httpImageLink) {
+        this.httpImageLink = httpImageLink;
+    }
 
     @Override
     public String toString() {
-        return "AccountProfile{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", imageData=" + imageData + '}';
+        return "AccountProfile{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", httpImageLink=" + httpImageLink + '}';
     }
+    
+    
 
     
 }
