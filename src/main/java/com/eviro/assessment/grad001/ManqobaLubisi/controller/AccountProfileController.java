@@ -40,10 +40,6 @@ public class AccountProfileController {
         AccountProfile accountProfile = accountProfileServiceImpl.findByNameAndSurname(name, surname);
         if (accountProfile != null) {
             url = new URL(accountProfile.getHttpImageLink());
-//            URLConnection conn = url.openConnection();
-//            InputStream in = conn.getInputStream();
-//            fileSystemResource = new FileSystemResource(in.toString());
-//            return in.;
         }
 
         return url;
