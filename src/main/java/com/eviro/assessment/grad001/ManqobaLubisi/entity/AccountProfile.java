@@ -31,6 +31,14 @@ public class AccountProfile {
     public AccountProfile() {
     }
 
+    public AccountProfile(String name, String surname, String httpImageLink) {
+        this.name = name;
+        this.surname = surname;
+        this.httpImageLink = httpImageLink;
+    }
+    
+    
+
     /**
      * @return the id
      */
