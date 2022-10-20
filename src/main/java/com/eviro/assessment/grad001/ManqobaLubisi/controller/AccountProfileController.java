@@ -28,15 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountProfileController {
 
     @Autowired
-    private FileParser fileParser;
-
-    @Autowired
     private AccountProfileServiceImpl accountProfileServiceImpl;
 
     @GetMapping(value = "getImage/{name}/{surname}")
     public URL getHttpImageLink(@PathVariable String name, @PathVariable String surname) throws IOException {
         URL url = null;
-        FileSystemResource fileSystemResource = null;
         AccountProfile accountProfile = accountProfileServiceImpl.findByNameAndSurname(name, surname);
         if (accountProfile != null) {
             url = new URL(accountProfile.getHttpImageLink());

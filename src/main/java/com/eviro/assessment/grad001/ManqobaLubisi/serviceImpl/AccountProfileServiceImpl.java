@@ -31,7 +31,7 @@ public class AccountProfileServiceImpl implements AccountProfileService{
     @Override
     public AccountProfile findByNameAndSurname(String name, String surname) {
         AccountProfile accountProfile = null;
-        List<AccountProfile> listAccounts = accountProfileRepository.getAccount(name, surname);
+        List<AccountProfile> listAccounts = accountProfileRepository.getAccounts(name, surname);
 
         if(listAccounts != null && listAccounts.size() == 1){
             accountProfile = listAccounts.get(0);
