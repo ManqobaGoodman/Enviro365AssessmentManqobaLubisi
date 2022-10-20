@@ -9,7 +9,9 @@ import com.eviro.assessment.grad001.ManqobaLubisi.service.FileParser;
 import com.eviro.assessment.grad001.ManqobaLubisi.serviceImpl.AccountProfileServiceImpl;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
@@ -32,11 +34,16 @@ public class AccountProfileController {
     private AccountProfileServiceImpl accountProfileServiceImpl;
 
     @GetMapping(value = "getImage/{name}/{surname}")
-    public URL gethttpImageLink(@PathVariable String name, @PathVariable String surname) throws IOException {
+    public URL getHttpImageLink(@PathVariable String name, @PathVariable String surname) throws IOException {
         URL url = null;
+        FileSystemResource fileSystemResource = null;
         AccountProfile accountProfile = accountProfileServiceImpl.findByNameAndSurname(name, surname);
         if (accountProfile != null) {
             url = new URL(accountProfile.getHttpImageLink());
+//            URLConnection conn = url.openConnection();
+//            InputStream in = conn.getInputStream();
+//            fileSystemResource = new FileSystemResource(in.toString());
+//            return in.;
         }
 
         return url;

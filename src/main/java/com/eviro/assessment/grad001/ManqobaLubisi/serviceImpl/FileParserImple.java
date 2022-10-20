@@ -10,19 +10,19 @@ import com.eviro.assessment.grad001.ManqobaLubisi.service.FileParser;
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+
+import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
@@ -58,16 +58,16 @@ public class FileParserImple implements FileParser {
                     AccountProfile account = new AccountProfile();
                     String imageFormat = record.getString("imageFormat");
                     String imageData = record.getString("imageData");
-                    String imageFormatData = imageFormat+" "+imageData;
-                    
+                    String imageFormatData = imageFormat + " " + imageData;
+
                     File image = convertCSVDataToImage(imageFormatData);
-                    
+
                     URL url = createImageLink(image);
-                    
+
                     account.setName(record.getString("name"));
-                    account.setSurname(record.getString("surname"));                
+                    account.setSurname(record.getString("surname"));
                     account.setHttpImageLink(url.toString());
-                    
+
                     accountList.add(account);
 
                 }
@@ -86,17 +86,19 @@ public class FileParserImple implements FileParser {
         if (base64ImageData != null) {
 
             String[] base64ImageDataArray = base64ImageData.split(" ");
-            System.out.println("String: "+base64ImageDataArray[0]);
+            System.out.println("String: " + base64ImageDataArray[0]);
 
-            byte[] decodedBytes = Base64.getDecoder().decode(base64ImageDataArray[1]);
-            String fileName = base64ImageDataArray[0].replace('/', '.');
-            file = new File("images/"+fileName);
-            FileOutputStream fileOutputStream;
-            try {
-                fileOutputStream = new FileOutputStream(file);
-                fileOutputStream.write(decodedBytes);
-            } catch (Exception ex) {
-                System.out.println("error: " + ex.getMessage());
+            if (base64ImageDataArray.length >= 2) {
+                byte[] decodedBytes = Base64.getDecoder().decode(base64ImageDataArray[1]);
+                String fileName = base64ImageDataArray[0].replace('/', '.');
+                file = new File("images/" + fileName);
+                FileOutputStream fileOutputStream;
+                try {
+                    fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream.write(decodedBytes);
+                } catch (Exception ex) {
+                    System.out.println("error: " + ex.getMessage());
+                }
             }
         }
 
@@ -106,15 +108,20 @@ public class FileParserImple implements FileParser {
     @Override
     public URL createImageLink(File fileImage) {
         URL url = null;
-
-        if (fileImage != null) {
-            FileSystemResource fileSystemResource = new FileSystemResource(fileImage);
-            try {
-               url = fileImage.toURI().toURL();
-            } catch (Exception ex) {
-                System.out.println("Error: " + ex.getMessage());
-            }
+        try {
+            
+            String protocol = "http";
+            String host = "localhost";
+            int port = 8080;
+            String file = "/C:/Users/manqo/Downloads/ManqobaLubisi/images/"+fileImage.getName();
+            //url = new URL(protocol, host, port, file);
+            url = fileImage.toURI().toURL();
+            
+            return url;
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(FileParserImple.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return url;
     }
 
