@@ -108,20 +108,21 @@ public class FileParserImple implements FileParser {
     @Override
     public URL createImageLink(File fileImage) {
         URL url = null;
-        try {
-            
-            String protocol = "http";
-            String host = "localhost";
-            int port = 8080;
-            String file = "/C:/Users/manqo/Downloads/ManqobaLubisi/images/"+fileImage.getName();
-            //url = new URL(protocol, host, port, file);
-            url = fileImage.toURI().toURL();
-            
-            return url;
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(FileParserImple.class.getName()).log(Level.SEVERE, null, ex);
+        if (fileImage.isFile()) {
+            try {
+
+                String protocol = "http";
+                String host = "localhost";
+                int port = 8080;
+                String file = "/C:/Users/manqo/Downloads/ManqobaLubisi/images/" + fileImage.getName();
+                //url = new URL(protocol, host, port, file);
+                url = fileImage.toURI().toURL();
+
+                return url;
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(FileParserImple.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
         return url;
     }
 
