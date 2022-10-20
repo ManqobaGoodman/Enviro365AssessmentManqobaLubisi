@@ -21,8 +21,6 @@ public class ManqobaLubisiApplication implements CommandLineRunner {
     @Autowired
     private FileParserImple fileParserImple;
     
-    @Autowired
-    private AccountProfileRepository accountProfileRepository;
     
     @Override
     public void run(String... args) throws Exception {
