@@ -42,7 +42,7 @@ public class FileParserImple implements FileParser {
     @Override
     public void parseCSV(File file) {
 
-        if (file != null) {
+        if (file.isFile()) {
 
             try (Reader inputReader = new InputStreamReader(new FileInputStream(file), "UTF-8")) {
 

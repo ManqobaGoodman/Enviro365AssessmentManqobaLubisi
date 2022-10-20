@@ -20,6 +20,6 @@ public interface AccountProfileRepository extends JpaRepository<AccountProfile, 
 //    public AccountProfile findByNameAndSurname(String name, String surname);
 
     @Query("select a from AccountProfile a where a.name  = ?1 and a.surname  = ?2")
-    List<AccountProfile> getAccounts( String surname,String name);
+    List<AccountProfile> getAccounts( String name,String surname);
 
 }
